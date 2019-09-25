@@ -5,6 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
@@ -60,6 +61,16 @@ public class Main {
         return "";
     }
 
+    public ArrayList<Combinacion> llenarCombinaciones() {
+        ArrayList<Combinacion> combinaciones = new ArrayList<>();
+        for (String letra : letras) {
+            for (String numero : numeros) {
+                combinaciones.add( new Combinacion(letra,numero));
+            }
+        }
+        return combinaciones;
+
+    }
     public static void main(String[] args) {
         // write your code here
     }
