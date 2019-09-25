@@ -1,23 +1,135 @@
-# Compiled class file
-*.class
+# Cubre los IDE de JetBrains: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio y WebStorm
 
-# Log file
-*.log
+# Referencia: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-# BlueJ files
-*.ctxt
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+# Cosas específicas del usuario
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+.idea/**/workspace.xml
+
+.idea/**/tasks.xml
+
+.idea/**/usage.statistics.xml
+
+.idea/**/diccionarios
+
+.idea/**/estante
+
+
+
+# Archivos generados
+
+.idea/**/contentModel.xml
+
+
+
+# Archivos sensibles o de alta rotación
+
+.idea/**/dataSources/
+
+.idea/**/dataSources.ids
+
+.idea/**/dataSources.local.xml
+
+.idea/**/sqlDataSources.xml
+
+.idea/**/dynamic.xml
+
+.idea/**/uiDesigner.xml
+
+.idea/**/dbnavigator.xml
+
+
+
+# Gradle
+
+.idea/**/gradle.xml
+
+.idea/**/bibliotecas
+
+
+
+# Gradle y Maven con auto-importación
+
+# Al utilizar Gradle o Maven con la importación automática, debe excluir los archivos de módulo,
+
+# ya que serán recreados, y pueden causar abandono. Anular comentario si se utiliza
+
+# auto-importación.
+
+# .idea/modules.xml
+
+# .idea/*.iml
+
+# .idea/módulos
+
+# *.iml
+
+# *.ipr
+
+
+
+# Cmake
+
+cmake-build-*/
+
+
+
+# Mongo Explorer plugin
+
+.idea/**/mongoSettings.xml
+
+
+
+# Formato de proyecto basado en archivos
+
+*.iws
+
+
+
+# IntelliJ
+
+hacia fuera/
+
+
+
+# mpeltonen/sbt-idea plugin
+
+.idea_modules/
+
+
+
+# Plugin JIRA
+
+atlassian-ide-plugin.xml
+
+
+
+# Cursive Clojure plugin
+
+.idea/replstate.xml
+
+
+
+# Plug plugin Crashlytics (para Android Studio e IntelliJ)
+
+com_crashlytics_export_strings.xml
+
+crashlytics.properties
+
+crashlytics-build.properties
+
+fabric.properties
+
+
+
+# Cliente Rest basado en editor
+
+.idea/httpRequests
+
+
+
+# Android studio 3.1+ archivo de caché serializado
+
+.idea/caches/build_file_checksums.ser
