@@ -45,6 +45,21 @@ public class Main {
         return new String(encoder.encodeToString(crypted));
     }
 
+    public static String decrypt(String input, String key) {
+        byte[] output = null;
+        try {
+            java.util.Base64.Decoder decoder = java.util.Base64.getDecoder();
+            //SecretKeySpec skey = new SecretKeySpec(key.getBytes(), "AES");
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            output = cipher.doFinal(decoder.decode(input));
+            return new String(output);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static void main(String[] args) {
         // write your code here
     }
