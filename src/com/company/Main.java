@@ -13,7 +13,7 @@ public class Main {
 
     private static SecretKeySpec secretKey;
     private static byte[] key;
-
+    private static  int cant_Tanteos = 0;
     private static String[] letras = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     private static String[] numeros = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
@@ -55,11 +55,11 @@ public class Main {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
             output = cipher.doFinal(decoder.decode(input));
-            System.out.println(new String(output));
+            //System.out.println(new String(output));
             return true;
         } catch (Exception e) {
             //e.printStackTrace();
-            return  false;
+            return false;
         }
     }
 
@@ -67,39 +67,40 @@ public class Main {
         ArrayList<Combinacion> combinaciones = new ArrayList<>();
         for (String letra : letras) {
             for (String numero : numeros) {
-                combinaciones.add( new Combinacion(letra,numero));
+                combinaciones.add(new Combinacion(letra, numero));
             }
         }
         return combinaciones;
 
     }
 
-    public static boolean probarKey(List<Combinacion> bloque){
+    public static boolean probarKey(List<Combinacion> bloque) {
         String parteA = "29dh120";
         String parteB = "dk1";
         String secretMessage = "xZwM7BWIpSjYyGFr9rhpEa+cYVtACW7yQKmyN6OYSCv0ZEg9jWbc6lKzzCxRSSIvOvlimQZBMZOYnOwiA9yy3YU8zk4abFSItoW6Wj0ufQ0=";
-        int iteracion = (int) (bloque.size() * 0.6);
+        int cant_Muestra = (int) (bloque.size() * 0.6);
         Random random = new Random();
-        for(int combinacion = 0; combinacion < iteracion;combinacion++){
+        for (int combinacion = 0; combinacion < cant_Muestra+1; combinacion++) {
+            cant_Tanteos += 1;
             int randomPosition = random.nextInt(bloque.size());
-            if(!(bloque.get(randomPosition).getLetra() + bloque.get(randomPosition).getNumero()).equals("b3")){
-                setKey(parteA + bloque.get(randomPosition).getLetra()+ parteB + bloque.get(randomPosition).getNumero() + "3");
+            if (!(bloque.get(randomPosition).getLetra() + bloque.get(randomPosition).getNumero()).equals("b3")) {
+                setKey(parteA + bloque.get(randomPosition).getLetra() + parteB + bloque.get(randomPosition).getNumero() + "3");
             }
-            if (decrypt(secretMessage)){
+            if (decrypt(secretMessage)) {
+
                 return true;
             }
-            //bloque.remove(randomPosition);
         }
         return false;
     }
 
-    public static List<Combinacion> probabilidad(ArrayList<Combinacion> combinaciones){
+    public static List<Combinacion> probabilidad(ArrayList<Combinacion> combinaciones) {
         int sizeParticiones = 4;
-        int cuartaParte = combinaciones.size()/sizeParticiones;
+        int cuartaParte = combinaciones.size() / sizeParticiones;
         int end = cuartaParte;
         int inicio = 0;
 
-        if (combinaciones.size() == 4){
+        if (combinaciones.size() == 4) {
             return combinaciones;
         }
 
@@ -107,6 +108,13 @@ public class Main {
         for (int particion = 1; particion <= sizeParticiones; particion++) {
             bloque = new ArrayList<>(combinaciones.subList(inicio, end));
             if (probarKey(bloque)) {
+                int length_bloque =  bloque.size();
+                System.out.println("Bloque#" + particion);
+                System.out.print("[");
+                for (int posicion = 0; i <length_bloque; posicion++) {
+                    System.out.print(bloque.get(posicion).getLetra() + bloque.get(posicion).getNumero() + ",");
+                }
+                System.out.println("]");
                 return probabilidad(bloque);
             }
             inicio = end;
@@ -115,23 +123,24 @@ public class Main {
         return null;
     }
 
-    public static void main(String[] args) {
-        ArrayList<Combinacion> combinaciones = llenarCombinaciones();
-        int intentos = 20;
-
-        for (int intento = 1;intento <= intentos;intento++){
+    public static void intentos(ArrayList<Combinacion> combinaciones , int intentos){
+        for (int intento = 1; intento <= intentos; intento++) {
             System.out.println("Intento: " + intento);
             Collections.shuffle(combinaciones);
             List<Combinacion> bloque = probabilidad(combinaciones);
-            if(bloque != null){
-                for (Combinacion combinacion : bloque) {
-                    System.out.println(combinacion.getLetra() + combinacion.getNumero());
-                }
-            }
-            else {
+            if (bloque != null) {
+                System.out.println("La respuesta es alguno de estos 4");
+            } else {
                 System.out.println("No se encontro la combinacion correcta!");
             }
+            System.out.println("Cantidad de Tanteos: " + cant_Tanteos);
             System.out.println("-------------------------------");
+            cant_Tanteos = 0;
         }
+    }
+    public static void main(String[] args) {
+        ArrayList<Combinacion> combinaciones = llenarCombinaciones();
+        int intentos = 20;
+        intentos(combinaciones,intentos);
     }
 }
