@@ -111,7 +111,7 @@ public class Main {
                 int length_bloque =  bloque.size();
                 System.out.println("Bloque#" + particion);
                 System.out.print("[");
-                for (int posicion = 0; i <length_bloque; posicion++) {
+                for (int posicion = 0; posicion <length_bloque; posicion++) {
                     System.out.print(bloque.get(posicion).getLetra() + bloque.get(posicion).getNumero() + ",");
                 }
                 System.out.println("]");
